@@ -2,12 +2,17 @@ import React from "react"
 // reference https://legacy.reactjs.org/docs/components-and-props.html
 
 const Button = (props) => {
+  // use destructuring
+  const {
+    children = "...", 
+    variant = "bg-black"
+  } = props;
   return(
     <button 
-      className={`h-10 px-6 font-semibold text-white rounded-md ${props.variant}`} 
+      className={`h-10 px-6 font-semibold text-white rounded-md ${variant}`} 
       type="submit"
     >
-      {props.children}
+      {children}
     </button>
   );
 };
@@ -18,7 +23,7 @@ function App() {
       <div className="flex gap-x-2">
         <Button variant="bg-red-500">logout</Button>
         <Button variant="bg-slate-300">login</Button>
-        <Button variant="bg-slate-500">register</Button>
+        <Button></Button>
       </div>
     </div>
   )
