@@ -3,11 +3,11 @@ const Button = (props) => {
     // use destructuring
     const {
       children = "...", 
-      variant = "bg-black"
+      className = "bg-black"
     } = props;
     return(
       <button 
-        className={`h-10 px-6 font-semibold text-white rounded-md ${variant}`} 
+        className={`h-10 px-6 font-semibold text-white rounded-md ${className}`} 
         type="submit"
       >
         {children}
