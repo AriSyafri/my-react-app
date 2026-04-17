@@ -1,21 +1,6 @@
 import React from "react"
 // reference https://legacy.reactjs.org/docs/components-and-props.html
-
-const Button = (props) => {
-  // use destructuring
-  const {
-    children = "...", 
-    variant = "bg-black"
-  } = props;
-  return(
-    <button 
-      className={`h-10 px-6 font-semibold text-white rounded-md ${variant}`} 
-      type="submit"
-    >
-      {children}
-    </button>
-  );
-};
+import Button from "./components/Elements/Button";
 
 function App() { 
   return (
