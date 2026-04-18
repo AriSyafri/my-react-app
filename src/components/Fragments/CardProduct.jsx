@@ -6,10 +6,8 @@ const CardProduct = (props) => {
     const { children } = props;
 
     return (
-        <div className="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow">
-
+        <div className="w-full max-w-sm mx-2 bg-gray-800 border border-gray-700 rounded-lg shadow">
             {children}
-
         </div>
     );
 };
