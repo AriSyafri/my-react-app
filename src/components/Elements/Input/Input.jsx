@@ -12,6 +12,7 @@ const Input = (props) => {
             className="w-full px-3 py-2 text-sm rounded text-slate-700"
             placeholder={placeholder}
             name={name}
+            id={name}
         />
     )
 };
