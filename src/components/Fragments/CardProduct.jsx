@@ -6,7 +6,7 @@ const CardProduct = (props) => {
     const { children } = props;
 
     return (
-        <div className="w-full max-w-sm mx-2 bg-gray-800 border border-gray-700 rounded-lg shadow">
+        <div className="flex flex-col justify-between w-full max-w-sm mx-2 bg-gray-800 border border-gray-700 rounded-lg shadow">
             {children}
         </div>
     );
@@ -31,7 +31,7 @@ const Body = (props) => {
         title
     } = props;
     return (
-        <div className="px-5 pb-5">
+        <div className="h-full px-5 pb-5">
             <a href="#">
                 <h5 className="text-xl font-semibold tracking-tight text-white">{title}</h5>
                 <p className="text-white text-m">{children}</p>
