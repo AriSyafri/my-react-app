@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 import Counter from "../components/Fragments/Counter";
@@ -31,13 +31,21 @@ const email = localStorage.getItem("email");
 
 
 const ProductPage = () => {
-    const [cart, setCart] = useState([
-        {
-            id: 1,
-            qty: 1,
-        },
-    ]);
+    const [cart, setCart] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
 
+    useEffect(() => {
+        setCart([{ id: 1, qty: 1}]);
+    }, []);
+
+    useEffect(() => {
+      const sum = cart.reduce((acc, item ) => {
+        const product = products.find((product) => product.id === item.id);
+        return acc + product.price * item.qty; 
+      }, 0);  
+      setTotalPrice(sum);
+    }, [cart]);
+    
     const handleLogout = () => {
         localStorage.removeItem('email');
         localStorage.removeItem('password');
@@ -82,11 +90,6 @@ const ProductPage = () => {
 
             <div className="w-2/6">
                 <h1 className="text-3xl font-bold text-blue-600">Cart</h1>
-                {/* <ul>
-                    {cart.map((item) => (
-                        <li key={item}>{item.id}</li>
-                    ))}
-                </ul> */}
                 <table className="mb-2 text-left border-separate table-auto border-spacing-x-5">
                     <thead>
                         <tr>
@@ -120,15 +123,29 @@ const ProductPage = () => {
                                 </tr>
                             )
                         })}
+                        <tr>
+                            <td colSpan={3}>
+                                <b>Price</b>
+                            </td>
+                            <td>
+                                <b>
+                                    RP. 
+                                    {(totalPrice).toLocaleString ("id-ID", {
+                                        styles: "currency",
+                                        currency: "IDR",
+                                    })}
+                                </b>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
         </div>
         
-        <div className="flex justify-center mt-5 mb-5">
+        {/* <div className="flex justify-center mt-5 mb-5">
             <Counter></Counter>
-        </div>
+        </div> */}
 
         </Fragment>
     );
