@@ -12,8 +12,15 @@ class Counter extends React.Component {
     };
 
     componentDidMount() {
-        this.setState({count: 10});
+        this.setState({count: 1});
         console.log("componentDidMount");
+    }
+
+    componentDidUpdate(prevProps, prevStates) {
+        console.log("componentDidUpdate");
+        if(this.state.count === 10) {
+            this.setState({ count: 5});
+        } 
     }
 
     render() {
