@@ -73,6 +73,16 @@ const ProductPage = () => {
         localStorage.setItem("cart", JSON.stringify(cartRef.current));
     };
 
+    const totalPriceRef = useRef(null);
+    // console.log(totalPriceRef);
+
+    useEffect(() => {
+        if(cart.length > 0) {
+            totalPriceRef.current.style.display = "table-row";
+        } else {
+            totalPriceRef.current.style.display = "none";
+        }
+    }, [cart]);
 
     return (
         <Fragment>
@@ -93,7 +103,7 @@ const ProductPage = () => {
                         <CardProduct.Footer 
                             price={product.price}
                             id={product.id} 
-                            handleAddToCart={handlerAddToCartRef}
+                            handleAddToCart={handleAddToCart}
                         />
                     </CardProduct>    
                 ))}
@@ -111,7 +121,7 @@ const ProductPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {cartRef.current.map((item) => {
+                        {cart.map((item) => {
                             const product = products.find(
                                 (product) => product.id === item.id
                             );
@@ -134,7 +144,7 @@ const ProductPage = () => {
                                 </tr>
                             )
                         })}
-                        {/* <tr>
+                        <tr ref={totalPriceRef}>
                             <td colSpan={3}>
                                 <b>Price</b>
                             </td>
@@ -147,16 +157,13 @@ const ProductPage = () => {
                                     })}
                                 </b>
                             </td>
-                        </tr> */}
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
         </div>
         
-        {/* <div className="flex justify-center mt-5 mb-5">
-            <Counter></Counter>
-        </div> */}
 
         </Fragment>
     );
