@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 import Counter from "../components/Fragments/Counter";
@@ -65,7 +65,15 @@ const ProductPage = () => {
         }
     };
 
-    
+    //useRef
+    const cartRef = useRef([]);
+
+    const handlerAddToCartRef = (id) => {
+        cartRef.current = [...cartRef.current, { id, qty: 1 }];
+        localStorage.setItem("cart", JSON.stringify(cartRef.current));
+    };
+
+
     return (
         <Fragment>
           <div className="flex items-center justify-end h-20 px-10 text-white bg-blue-600">
@@ -85,7 +93,7 @@ const ProductPage = () => {
                         <CardProduct.Footer 
                             price={product.price}
                             id={product.id} 
-                            handleAddToCart={handleAddToCart}
+                            handleAddToCart={handlerAddToCartRef}
                         />
                     </CardProduct>    
                 ))}
@@ -103,7 +111,7 @@ const ProductPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {cart.map((item) => {
+                        {cartRef.current.map((item) => {
                             const product = products.find(
                                 (product) => product.id === item.id
                             );
@@ -126,7 +134,7 @@ const ProductPage = () => {
                                 </tr>
                             )
                         })}
-                        <tr>
+                        {/* <tr>
                             <td colSpan={3}>
                                 <b>Price</b>
                             </td>
@@ -139,7 +147,7 @@ const ProductPage = () => {
                                     })}
                                 </b>
                             </td>
-                        </tr>
+                        </tr> */}
                     </tbody>
                 </table>
             </div>
