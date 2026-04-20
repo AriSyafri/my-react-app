@@ -1,9 +1,10 @@
 import Button from "../Elements/Button";
 import InputForm from "../Elements/Input";
+import { useEffect, useRef } from "react";
 
 const FormLogin = () => {
 
-  const handleLogin = () => {
+  const handleLogin = (event) => {
     event.preventDefault();
 
     localStorage.setItem("email", event.target.email.value);
@@ -16,6 +17,12 @@ const FormLogin = () => {
     window.location.href = "/products";
   }
 
+  const emailRef = useRef(null);
+
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+
     return (
         <form onSubmit={handleLogin}>
         <div className="mb-6">
@@ -24,6 +31,7 @@ const FormLogin = () => {
             name="email"
             type="email"
             placeholder="example@gmail.com"
+            ref={emailRef}
           />
 
           <InputForm 
