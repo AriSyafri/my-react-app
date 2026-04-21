@@ -49,6 +49,30 @@ const ProductPage = () => {
         }
     };
 
+    const handleDeleteToCart = (id) => {
+        const itemInCart = cart.find(item => item.id === id);
+    
+        if (itemInCart) {
+            if (itemInCart.qty > 1) {
+                // Jika qty masih lebih dari 1, cukup kurangi
+                setCart(
+                    cart.map(item => item.id === id ? { ...item, qty: item.qty - 1 } : item)
+                );
+            } else {
+                // Jika qty sudah 1 dan diklik kurang, maka HAPUS (filter)
+                setCart(cart.filter(item => item.id !== id));
+            }
+        }
+    };
+
+    // const handleDeleteToCart = (id) => {
+    //     if(cart.find(item => item.id === id)) {
+    //         setCart(
+    //             cart.map(item => item.id === id ? {...item, qty: item.qty - 1} : item)
+    //         )
+    //     } 
+    // } 
+
     //useRef
     const cartRef = useRef([]);
 
@@ -88,6 +112,7 @@ const ProductPage = () => {
                             price={product.price}
                             id={product.id} 
                             handleAddToCart={handleAddToCart}
+                            handleDeleteToCart= {handleDeleteToCart}
                         />
                     </CardProduct>    
                 ))}

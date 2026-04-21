@@ -42,6 +42,7 @@ const Footer = (props) => {
     const {
         price,
         handleAddToCart,
+        handleDeleteToCart,
         id
     } = props;
     return (
@@ -50,7 +51,8 @@ const Footer = (props) => {
                 className="text-sm font-bold text-white">
                     $ {price.toLocaleString('id-ID', { styles: "currency", currency: "USD"})}
             </span>
-            <Button classname="text-sm bg-blue-600" onClick={() => handleAddToCart(id)}>Add to card</Button>
+            <Button classname="text-sm bg-red-600" onClick={() => handleDeleteToCart(id)}>-</Button>
+            <Button classname="text-sm bg-blue-600" onClick={() => handleAddToCart(id)}>+</Button>
         </div>
     );
 };
