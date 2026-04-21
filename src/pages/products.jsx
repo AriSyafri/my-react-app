@@ -2,6 +2,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 import Counter from "../components/Fragments/Counter";
+import { getProducts } from "../services/product.service";
 
 const products = [
     {
@@ -37,6 +38,10 @@ const ProductPage = () => {
     useEffect(() => {
         setCart(JSON.parse(localStorage.getItem("cart")) || [] );
     }, []);
+
+    useEffect(() => {
+        getProducts();
+    }, [])
 
     useEffect(() => {
       if(cart.length > 0) {
