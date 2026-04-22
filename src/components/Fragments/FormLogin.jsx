@@ -1,3 +1,4 @@
+import { login } from "../../services/auth.service";
 import Button from "../Elements/Button";
 import InputForm from "../Elements/Input";
 import { useEffect, useRef } from "react";
@@ -7,31 +8,36 @@ const FormLogin = () => {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    localStorage.setItem("email", event.target.email.value);
-    localStorage.setItem("password", event.target.password.value);
+    // localStorage.setItem("email", event.target.email.value);
+    // localStorage.setItem("password", event.target.password.value);
+    // console.log(event.target.email.value);
+    // console.log(event.target.password.value);
+    // console.log("login");
+    // window.location.href = "/products";
 
-    console.log(event.target.email.value);
-    console.log(event.target.password.value);
-    console.log("login");
+    const data = {
+      username: event.target.username.value,
+      password: event.target.password.value,
+    };
 
-    window.location.href = "/products";
+    login(data);
   }
 
-  const emailRef = useRef(null);
+  const usernameRef = useRef(null);
 
   useEffect(() => {
-    emailRef.current.focus();
+    usernameRef.current.focus();
   }, []);
 
     return (
         <form onSubmit={handleLogin}>
         <div className="mb-6">
           <InputForm 
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="example@gmail.com"
-            ref={emailRef}
+            label="Username"
+            name="username"
+            type="username"
+            placeholder="username01"
+            ref={usernameRef}
           />
 
           <InputForm 
