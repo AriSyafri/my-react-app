@@ -1,26 +1,29 @@
 import { login } from "../../services/auth.service";
 import Button from "../Elements/Button";
 import InputForm from "../Elements/Input";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FormLogin = () => {
 
+  const [loginFailed, setLoginFailed] = useState("");
+
   const handleLogin = (event) => {
-    event.preventDefault();
-
-    // localStorage.setItem("email", event.target.email.value);
-    // localStorage.setItem("password", event.target.password.value);
-    // console.log(event.target.email.value);
-    // console.log(event.target.password.value);
-    // console.log("login");
-    // window.location.href = "/products";
-
+    event.preventDefault(); 
+    
     const data = {
       username: event.target.username.value,
       password: event.target.password.value,
     };
 
-    login(data);
+    login(data, (status, res) => {
+      if (status) {
+        localStorage.setItem("token", res);
+        window.location.href = "/products";
+      } else {
+        setLoginFailed(res.response.data);
+        console.log(res.response.data);
+      }
+    });
   }
 
   const usernameRef = useRef(null);
@@ -31,6 +34,7 @@ const FormLogin = () => {
 
     return (
         <form onSubmit={handleLogin}>
+          {loginFailed && <p className="text-center text-red-500">{loginFailed}</p> }
         <div className="mb-6">
           <InputForm 
             label="Username"
