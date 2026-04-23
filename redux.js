@@ -29,7 +29,7 @@ console.log("oncreate store: ", store.getState());
 // subscribe -> memeriksa perubahan di store (ini terakhir dijalankan biasanya)
 store.subscribe(() => {
     console.log("STORE CHANGE : ", store.getState());
-})
+});
 
 // dispatch
 const action1 = {type: "ADD_TO_CART", payload: { id: 2, qty: 50 }};
