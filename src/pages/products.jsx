@@ -1,52 +1,25 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
-import Counter from "../components/Fragments/Counter";
 import { getProducts } from "../services/product.service";
-import { getUsername } from "../services/auth.service";
 import { useLogin } from "../hooks/useLogin";
 import TableCart from "../components/Fragments/TableCart";
 
-// const token = localStorage.getItem("token");
-
 
 const ProductPage = () => {
-    // const [cart, setCart] = useState([]);
-    // const [totalPrice, setTotalPrice] = useState(0);
     const [products, setProducts] = useState([]);
     const username = useLogin();
-
-    // useEffect(() => {
-    //     setCart(JSON.parse(localStorage.getItem("cart")) || [] );
-    // }, []);
 
     useEffect(() => {
         getProducts((data) => {
             setProducts(data);
         });
     }, [])
-
-    
+     
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('password');
         window.location.href = "/login";
-    };
-
-    const handleDeleteToCart = (id) => {
-        const itemInCart = cart.find(item => item.id === id);
-    
-        if (itemInCart) {
-            if (itemInCart.qty > 1) {
-                // Jika qty masih lebih dari 1, cukup kurangi
-                setCart(
-                    cart.map(item => item.id === id ? { ...item, qty: item.qty - 1 } : item)
-                );
-            } else {
-                // Jika qty sudah 1 dan diklik kurang, maka HAPUS (filter)
-                setCart(cart.filter(item => item.id !== id));
-            }
-        }
     };
 
     return (
@@ -69,7 +42,6 @@ const ProductPage = () => {
                         <CardProduct.Footer 
                             price={product.price}
                             id={product.id} 
-                            handleDeleteToCart= {handleDeleteToCart}
                         />
                     </CardProduct>    
                 ))}
@@ -79,10 +51,8 @@ const ProductPage = () => {
                 <h1 className="text-3xl font-bold text-blue-600">Cart</h1>
                 <TableCart products={products} />
             </div>
-
         </div>
-        
-
+    
         </Fragment>
     );
 };

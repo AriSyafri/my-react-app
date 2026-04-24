@@ -19,7 +19,6 @@ const TableCart = ( props ) => {
     }, [cart, products]);
 
     const totalPriceRef = useRef(null);
-    // console.log(totalPriceRef);
 
     useEffect(() => {
         if(cart.length > 0) {
