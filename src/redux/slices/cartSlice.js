@@ -1,9 +1,9 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
-        data: [],
+        data: JSON.parse(localStorage.getItem("cart")) || [],
     },
     reducers: {
         addToCart: (state, action) => {
@@ -19,15 +19,15 @@ const cartSlice = createSlice({
         },
 
         deleteToCart: (state, action ) => {
-            const itemInCart = state.data.find(
+            const index = state.data.findIndex(
                 (item) => item.id === action.payload.id
             );
 
-            if (itemInCart) {
-                if (itemInCart.qty > 1) {
-                    itemInCart.qty--;
+            if (index !== -1) {
+                if (state.data[index].qty > 1) {
+                    state.data[index].qty--;
                 } else {
-                    state.data.splice(itemInCart, 1);
+                    state.data.splice(index, 1);
                 }
             }
         },
