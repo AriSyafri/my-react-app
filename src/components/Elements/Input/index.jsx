@@ -8,7 +8,7 @@ const InputForm = forwardRef((props, ref) => {
 
     return (
         <div className="m-6">
-            <Label htmlFor={name}>{label}</Label>
+            <Label  htmlFor={name}>{label}</Label>
             <Input 
                 name={name} 
                 type={type} 
